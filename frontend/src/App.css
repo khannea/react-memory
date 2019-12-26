@@ -1,0 +1,7 @@
+.memory {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  margin: auto;
+  user-select: none;
+}
