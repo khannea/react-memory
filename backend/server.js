@@ -1,9 +1,15 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+var express = require('express');
+const bodyParser = require("body-parser");
+var cors = require('cors');
+const mongoose = require('mongoose');
+var Gagnant = require("./models/Gagnant.js");
 
-import Gagnant from './models/Gagnant.js'
+//import express from 'express';
+//import cors from 'cors';
+//import bodyParser from 'body-parser';
+//import mongoose from 'mongoose';
+
+//import Gagnant from './models/Gagnant.js'
 
 const app = express();
 const router = express.Router();
@@ -18,6 +24,7 @@ const connection = mongoose.connection;
 connection.once('open', () => {
   console.log('Je suis connecté a mongoose')
 });
+
 
 router.route('/gagnants').get((req, res) => {
   Gagnant.find((err, gagnants) => {
@@ -71,4 +78,4 @@ router.route('/add').post((req, res) => {
 
 app.use('/', router);
 
-app.listen(4000, () => console.log('Serveur Express sur le port 4000'));
+app.listen(4001, () => console.log('Serveur Express sur le port 4001'));

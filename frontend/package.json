@@ -2,6 +2,7 @@
   "name": "memory",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "lodash.shuffle": "^4.2.0",
     "prop-types": "^15.7.2",

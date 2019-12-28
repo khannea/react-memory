@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 // Duplicate the ID field.
@@ -15,5 +15,4 @@ let Gagnant = new Schema({
 Gagnant.set('toObject', { virtuals: true })
 Gagnant.set('toJSON', { virtuals: true })
 
-
-export default mongoose.model('Gagnant', Gagnant)
+module.exports = mongoose.model('Gagnant', Gagnant)

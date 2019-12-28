@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   getDataFromDb = () => {
-    const req = new Request("http://localhost:4000/gagnants", {
+    const req = new Request("/ap2/gagnants", {
       method: "GET",
       cache: "default"
     });
@@ -44,7 +44,7 @@ class App extends Component {
   };
 
   addDataFromDb = data => {
-    fetch("http://localhost:4000/add", {
+    fetch("/ap2/add", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
