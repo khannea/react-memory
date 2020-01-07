@@ -9,7 +9,7 @@ import HallOfFame from "./HallOfFame";
 import HighScoreInput from "./HighScoreInput";
 
 const SIDE = 4;
-const SYMBOLS = "😀🎉💖🎩🐶🐱🦄🐬"
+const SYMBOLS = "😀🎉💖🎩🐶🐱🦄🐬";
 const VISUAL_PAUSE_MSECS = 750;
 
 class App extends Component {
@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   getDataFromDb = () => {
-    const req = new Request("/ap2/gagnants", {
+    const req = new Request("/ap2/memory_rank/get", {
       method: "GET",
       cache: "default"
     });
@@ -44,7 +44,7 @@ class App extends Component {
   };
 
   addDataFromDb = data => {
-    fetch("/ap2/add", {
+    fetch("/ap2/memory_rank/add", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -71,34 +71,34 @@ class App extends Component {
   }
 
   getFeedbackForCard(index) {
-    const { currentPair, matchedCardIndices } = this.state
-    const indexMatched = matchedCardIndices.includes(index)
-  
+    const { currentPair, matchedCardIndices } = this.state;
+    const indexMatched = matchedCardIndices.includes(index);
+
     if (currentPair.length < 2) {
-      return indexMatched || index === currentPair[0] ? 'visible' : 'hidden'
+      return indexMatched || index === currentPair[0] ? "visible" : "hidden";
     }
-  
+
     if (currentPair.includes(index)) {
-      return indexMatched ? 'justMatched' : 'justMismatched'
+      return indexMatched ? "justMatched" : "justMismatched";
     }
-  
-    return indexMatched ? 'visible' : 'hidden'
+
+    return indexMatched ? "visible" : "hidden";
   }
 
   // Arrow fx for binding
   handleCardClick = index => {
-    const { currentPair } = this.state
-  
+    const { currentPair } = this.state;
+
     if (currentPair.length === 2) {
-      return
+      return;
     }
-  
+
     if (currentPair.length === 0) {
-      this.setState({ currentPair: [index] })
-      return
+      this.setState({ currentPair: [index] });
+      return;
     }
-    this.handleNewPairClosedBy(index)
-  }
+    this.handleNewPairClosedBy(index);
+  };
 
   handleNewPairClosedBy(index) {
     const { cards, currentPair, guesses, matchedCardIndices } = this.state;
