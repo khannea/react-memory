@@ -1,10 +1,10 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
+var express = require("express");
+const bodyParser = require("body-parser");
+var cors = require("cors");
+const mongoose = require("mongoose");
 
-import Memory_rank from "./models/Memory_rank.js";
-import Tetris_rank from "./models/Tetris_rank.js";
+var Memory_rank = require("./models/Memory_rank.js");
+var Tetris_rank = require("./models/Tetris_rank.js");
 
 const app = express();
 const router = express.Router();
