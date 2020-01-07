@@ -1,15 +1,10 @@
-var express = require('express');
-const bodyParser = require("body-parser");
-var cors = require('cors');
-const mongoose = require('mongoose');
-var Gagnant = require("./models/Gagnant.js");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
 
-//import express from 'express';
-//import cors from 'cors';
-//import bodyParser from 'body-parser';
-//import mongoose from 'mongoose';
-
-//import Gagnant from './models/Gagnant.js'
+import Memory_rank from "./models/Memory_rank.js";
+import Tetris_rank from "./models/Tetris_rank.js";
 
 const app = express();
 const router = express.Router();
@@ -17,65 +12,83 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/gagnants');
+mongoose.connect("mongodb://localhost:27017/Ranking");
 
 const connection = mongoose.connection;
 
-connection.once('open', () => {
-  console.log('Je suis connecté a mongoose')
+connection.once("open", () => {
+  console.log("Je suis connecté a mongoose");
 });
 
-
-router.route('/gagnants').get((req, res) => {
-  Gagnant.find((err, gagnants) => {
-    if (err)
-      console.log('erreur');
-    else{
-            res.json(gagnants);
+router.route("/memory_rank/get").get((req, res) => {
+  Memory_rank.find((err, item) => {
+    if (err) console.log("erreur");
+    else {
+      res.json(item);
     }
-
-  })
+  });
 });
 
-router.route('/gagnants/:id').get((req, res) => {
-    Gagnant.findById(req.params.id, (err, categorie) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(categorie);
+router.route("/memory_rank/:id").get((req, res) => {
+  Memory_rank.findById(req.params.id, (err, item) => {
+    if (err) console.log(err);
+    else res.json(item);
+  });
+});
+
+router.route("/memory_rank/update/:id").post((req, res) => {
+  Memory_rank.findById(req.params.id, (err, item) => {
+    if (!item) return next(new Error("Could not load Document"));
+    else {
+      item.id = req.body.id;
+      item.nom = req.body.nom;
+      item.guesses = req.body.guesses;
+
+      item
+        .save()
+        .then(item => {
+          res.json(item);
+        })
+        .catch(err => {
+          res.status(400).send("Update failed");
+        });
+    }
+  });
+});
+
+router.route("/memory_rank/add").post((req, res) => {
+  let item = new Memory_rank(req.body);
+  item
+    .save()
+    .then(item => {
+      res.status(200).json({ "Memory record": "Added successfully" });
     })
-});
-
-router.route('/gagnants/update/:id').post((req, res) => {
-    Gagnant.findById(req.params.id, (err, gagnant) => {
-        if (!gagnant)
-            return next(new Error('Could not load Document'));
-        else {
-            gagnant.id = req.body.id;
-            gagnant.nom = req.body.nom;
-            gagnant.guesses = req.body.guesses;
-
-            gagnant.save().then(gagnant => {
-                res.json(gagnant);
-            }).catch(err => {
-                res.status(400).send('Update failed');
-            });
-        }
+    .catch(err => {
+      res.status(400).send("Failed to create new record");
     });
 });
 
-router.route('/add').post((req, res) => {
-    console.log(req)
-    let gagnant = new Gagnant(req.body);
-    gagnant.save()
-        .then(gagnant => {
-            res.status(200).json({'gagnant': 'Added successfully'});
-        })
-        .catch(err => {
-            res.status(400).send('Failed to create new record');
-        });
+router.route("/tetris_rank/get").get((req, res) => {
+  Tetris_rank.find((err, item) => {
+    if (err) console.log("erreur");
+    else {
+      res.json(item);
+    }
+  });
 });
 
-app.use('/', router);
+router.route("/tetris_rank/add").post((req, res) => {
+  let item = new Tetris_rank(req.body);
+  item
+    .save()
+    .then(item => {
+      res.status(200).json({ "Tetris record": "Added successfully" });
+    })
+    .catch(err => {
+      res.status(400).send("Failed to create new record");
+    });
+});
 
-app.listen(4001, () => console.log('Serveur Express sur le port 4001'));
+app.use("/", router);
+
+app.listen(4001, () => console.log("Serveur Express sur le port 4001"));
