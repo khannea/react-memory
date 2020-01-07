@@ -41,7 +41,7 @@ router.route("/memory_rank/update/:id").post((req, res) => {
     if (!item) return next(new Error("Could not load Document"));
     else {
       item.id = req.body.id;
-      item.nom = req.body.nom;
+      item.name = req.body.name;
       item.guesses = req.body.guesses;
 
       item
