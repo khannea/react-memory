@@ -8,8 +8,8 @@ import GuessCount from "./GuessCount";
 import HallOfFame from "./HallOfFame";
 import HighScoreInput from "./HighScoreInput";
 
-const SIDE = 4;
-const SYMBOLS = "😀🎉💖🎩🐶🐱🦄🐬";
+const SIDE = 6;
+const SYMBOLS = "😀🎉💖🎩🐶🐱🦄🐬🌍🌛🌞💫🍎🍌🍓🍐🍟🍿";
 const VISUAL_PAUSE_MSECS = 750;
 
 class App extends Component {
