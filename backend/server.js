@@ -96,7 +96,6 @@ router.route("/tetris_rank/add").post((req, res) => {
 
 router.route("/corona/addvote").post((req, res) => {
   let item = new Vote(req.body);
-  console.log(item.from);
   Vote.deleteMany({ from: item.from }, (err, item) => {});
   item
     .save()
@@ -114,9 +113,11 @@ router.route("/corona/getvote").get((req, res) => {
   let younes = 0;
   let lucas = 0;
   Vote.find({ from: "younes" }, (err, list) => {
+    console.log(list);
     younes = list.length;
   });
   Vote.find({ from: "lucas" }, (err, list) => {
+    console.log(list);
     lucas = list.length;
   });
 
