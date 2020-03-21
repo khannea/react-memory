@@ -61,7 +61,9 @@ router.route("/memory_rank/add").post((req, res) => {
   item
     .save()
     .then(item => {
-      res.status(200).json({ "Memory record": "Added successfully" });
+      res.status(200).json({
+        "Memory record": "Added successfully"
+      });
     })
     .catch(err => {
       res.status(400).send("Failed to create new record");
@@ -82,12 +84,38 @@ router.route("/tetris_rank/add").post((req, res) => {
   item
     .save()
     .then(item => {
-      res.status(200).json({ "Tetris record": "Added successfully" });
+      res.status(200).json({
+        "Tetris record": "Added successfully"
+      });
     })
     .catch(err => {
       res.status(400).send("Failed to create new record");
     });
 });
+
+router.route("/corona/addvote").post((req, res) => {
+  let item = new Vote(req.body);
+  item
+    .save()
+    .then(item => {
+      res.status(200).json({
+        "Vote sauvé": "Added successfully"
+      });
+    })
+    .catch(err => {
+      res.status(400).send("Erreur sauvegarde vote");
+    });
+});
+
+router.route("/corona/getvote").get((req, res) => {
+  Vote.find((err, item) => {
+    if (err) console.log("erreur");
+    else {
+      res.json(item);
+    }
+  });
+});
+
 
 app.use("/", router);
 
