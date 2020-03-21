@@ -116,7 +116,6 @@ router.route("/corona/getvote").get((req, res) => {
   });
 });
 
-
 app.use("/", router);
 
 app.listen(4001, () => console.log("Serveur Express sur le port 4001"));
