@@ -110,14 +110,16 @@ router.route("/corona/addvote").post((req, res) => {
 });
 
 router.route("/corona/getvote").get((req, res) => {
-  var younes = Vote.find({ to: "younes" }, (err, list) => {
-    return list.length;
+  var younes = Vote.find({ to: "younes" }, (err, list1) => {
+    let younes = list1.length;
+    Vote.find({ to: "lucas" }, (err, list2) => {
+      let lucas =  list2.length;
+       res.json({ younes: younes, lucas: lucas });
+    });
   });
-  var lucas = Vote.find({ to: "lucas" }, (err, list) => {
-    return list.length;
-  });
+  var lucas = 
 
-  res.json({ younes: younes, lucas: lucas });
+ 
 
   // Vote.find((err, item) => {
   //   if (err) console.log("erreur");
