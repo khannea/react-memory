@@ -110,8 +110,8 @@ router.route("/corona/addvote").post((req, res) => {
 });
 
 router.route("/corona/getvote").get((req, res) => {
-  let younes = 0;
-  let lucas = 0;
+  var younes = 0;
+  var lucas = 0;
   Vote.find({ to: "younes" }, (err, list1) => {
     console.log(list1.length);
     younes = list1.length;
