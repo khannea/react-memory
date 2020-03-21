@@ -111,12 +111,22 @@ router.route("/corona/addvote").post((req, res) => {
 });
 
 router.route("/corona/getvote").get((req, res) => {
-  Vote.find((err, item) => {
-    if (err) console.log("erreur");
-    else {
-      res.json(item);
-    }
+  let younes = 0;
+  let lucas = 0;
+  Vote.find({ from: "younes" }, (err, list) => {
+    younes = list.length;
   });
+  Vote.find({ from: "lucas" }, (err, list) => {
+    lucas = list.length;
+  });
+
+  res.json({ younes: younes, lucas: lucas });
+  // Vote.find((err, item) => {
+  //   if (err) console.log("erreur");
+  //   else {
+  //     let younes = res.json(item);
+  //   }
+  // });
 });
 
 app.use("/", router);
