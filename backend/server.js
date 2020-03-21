@@ -96,7 +96,7 @@ router.route("/tetris_rank/add").post((req, res) => {
 
 router.route("/corona/addvote").post((req, res) => {
   let item = new Vote(req.body);
-  Vote.remove({ from: item.from });
+  Vote.delete({ from: item.from });
   item
     .save()
     .then(item => {
