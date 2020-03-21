@@ -116,7 +116,7 @@ router.route("/corona/getvote").get((req, res) => {
     nb_younes = list1.length;
     Vote.find({ to: "lucas" }, (err, list2) => {
       nb_lucas = list2.length;
-      res.json({ nb_younes, lunb_lucascas });
+      res.json({ nb_younes, nb_lucas });
     });
   });
 
