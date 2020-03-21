@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 var Memory_rank = require("./models/Memory_rank.js");
 var Tetris_rank = require("./models/Tetris_rank.js");
+var Vote = require("./models/Vote.js");
 
 const app = express();
 const router = express.Router();
