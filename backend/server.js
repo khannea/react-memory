@@ -113,9 +113,11 @@ router.route("/corona/getvote").get((req, res) => {
   var younes = Vote.find({ to: "younes" }, (err, list) => {
     return list.length;
   });
-  var lucas = Vote.find({ to: "lucas" }, (err, list2) => {
-    lucas = list2.length;
-  }).then(res.json({ younes: younes, lucas: lucas }));
+  var lucas = Vote.find({ to: "lucas" }, (err, list) => {
+    return list.length;
+  });
+
+  res.json({ younes: younes, lucas: lucas });
 
   // Vote.find((err, item) => {
   //   if (err) console.log("erreur");
