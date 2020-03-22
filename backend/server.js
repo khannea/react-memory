@@ -122,7 +122,7 @@ router.route("/corona/getvote").get((req, res) => {
           nb_bau = list4.length;
           Vote.find({ to: "romain" }, (err, list5) => {
             nb_romain = list5.length;
-            res.json({ nb_younes, nb_romain });
+            res.json({ nb_younes, nb_lucas, nb_lapuerta, nb_bau, nb_romain });
           });
         });
       });
