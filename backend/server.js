@@ -110,8 +110,6 @@ router.route("/corona/addvote").post((req, res) => {
 });
 
 router.route("/corona/getvote").get((req, res) => {
-  let nb_younes = 0;
-  let nb_lucas = 0;
   Vote.find({ to: "younes" }, (err, list1) => {
     nb_younes = list1.length;
     Vote.find({ to: "lucas" }, (err, list2) => {
@@ -122,7 +120,21 @@ router.route("/corona/getvote").get((req, res) => {
           nb_bau = list4.length;
           Vote.find({ to: "romain" }, (err, list5) => {
             nb_romain = list5.length;
-            res.json({ nb_younes, nb_lucas, nb_lapuerta, nb_bau, nb_romain });
+            Vote.find({ to: "dudu" }, (err, list6) => {
+              nb_dudu = list6.length;
+              Vote.find({ to: "jerem" }, (err, list7) => {
+                nb_jerem = list7.length;
+                res.json({
+                  nb_younes,
+                  nb_lucas,
+                  nb_lapuerta,
+                  nb_bau,
+                  nb_romain,
+                  nb_dudu,
+                  nb_jerem
+                });
+              });
+            });
           });
         });
       });
